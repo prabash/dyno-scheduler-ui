@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
-//import './App.css';
+import './App.css';
 import MainPage from "./Components/Main/MainPage"
 import MainMenu from "./Components/MainMenu/MainMenu"
 
@@ -22,7 +22,7 @@ export default class App extends Component {
             Learn React
           </a>
         </header> */}
-        <MainPage/>
+        <MainMenu/>
       </div>
     );
   }
