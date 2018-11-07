@@ -1,8 +1,7 @@
 import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
-import MainPage from "./Components/Main/MainPage"
-import MainMenu from "./Components/MainMenu/MainMenu"
+import Menu from "./Components/Menu/Menu"
 
 export default class App extends Component {
   render() {
@@ -22,7 +21,7 @@ export default class App extends Component {
             Learn React
           </a>
         </header> */}
-        <MainMenu/>
+        <Menu/>
       </div>
     );
   }
