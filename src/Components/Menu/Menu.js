@@ -8,7 +8,7 @@ import BurgerMenu from "react-burger-menu";
 import "./Menu.css";
 
 /* Routing */
-import WorkCenterGantt from "../WorkCenterGantt/WorkCenterGantt";
+import WorkCenterSchedule from "../WorkCenterSchedule/WorkCenterSchedule";
 import Home from "../Home/Home";
 
 /* MenuWrap Class */
@@ -43,8 +43,8 @@ export default class Menu extends Component {
       <NavLink to="/">
         <span>Home</span>
       </NavLink>,
-      <NavLink to="/Gantt">
-        <span>Gantt Chart</span>
+      <NavLink to="/WorkCenterSchedule">
+        <span>Work Center Schedule</span>
       </NavLink>,
       <NavLink to="/Messages">
         <span>Messages</span>
@@ -85,7 +85,7 @@ export default class Menu extends Component {
         <div id="outer-container" style={{ height: "100%" }}>
           {this.getMenu()}
           <Route exact path="/" component={Home} />
-          <Route path="/Gantt" component={WorkCenterGantt} />
+          <Route path="/WorkCenterSchedule" component={WorkCenterSchedule} />
         </div>
       </Router>
     );
