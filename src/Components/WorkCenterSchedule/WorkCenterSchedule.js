@@ -1,7 +1,10 @@
 import React, { Component } from "react";
 import Scheduler, { Resource } from "devextreme-react/scheduler";
 import { resourcesData, priorityData } from "../../Services/data";
-import { getWCSchedule } from "../../Services/GetWorkCenterScheduleService";
+import {
+  getWCSchedule,
+  getWCScheduleTest
+} from "../../Services/GetWorkCenterScheduleService";
 
 /* CSS */
 import "./WorkCenterSchedule.css";
@@ -32,6 +35,11 @@ class WorkCenterSchedule extends Component {
       }
       console.log(content);
       this.setState({ content });
+    });
+
+    getWCScheduleTest().then(res => {
+      const test = res.data;
+      console.log(test);
     });
   }
 
