@@ -13,6 +13,9 @@ import "./ShopOrderSchedule.css";
 import "devextreme/dist/css/dx.common.css";
 import "devextreme/dist/css/dx.dark.css";
 
+/* Components */
+import MenuAppBar from "../MenuAppBar/MenuAppBar";
+
 const currentDate = new Date(2018, 7, 6);
 const views = [
   "timelineDay",
@@ -111,6 +114,7 @@ class ShopOrderSchedule extends Component {
     const { content, soOperations, shopOrders, workCenters } = this.state;
     return (
       <div className="App">
+      <MenuAppBar titleText="Shop Order Schedule"/>
         <main id="page-wrap">
           <h1>Shop Order Schedule</h1>
 

@@ -5,7 +5,7 @@
   width: 36px;
   height: 30px;
   left: 36px;
-  top: 36px;
+  top: 18px;
 }
 .right .bm-burger-button {
   left: initial;
@@ -19,6 +19,7 @@
 }
 .bm-menu {
   background: #444;
+  text-align: center;
 }
 .bm-menu a {
   color: #b8b7ad;

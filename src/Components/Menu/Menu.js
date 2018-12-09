@@ -9,6 +9,7 @@ import "./Menu.css";
 
 /* Routing */
 import ShopOrderSchedule from "../ShopOrderSchedule/ShopOrderSchedule";
+import ShopOrderHeader from "../ShopOrder/ShopOrderHeader";
 import Home from "../Home/Home";
 
 /* MenuWrap Class */
@@ -46,8 +47,8 @@ export default class Menu extends Component {
       <NavLink to="/ShopOrderSchedule">
         <span>Shop Order Schedule</span>
       </NavLink>,
-      <NavLink to="/Messages">
-        <span>Messages</span>
+      <NavLink to="/ShopOrderHeader">
+        <span>Shop Order Header</span>
       </NavLink>,
       <NavLink to="/Comments">
         <span>Comments</span>
@@ -86,6 +87,7 @@ export default class Menu extends Component {
           {this.getMenu()}
           <Route exact path="/" component={Home} />
           <Route path="/ShopOrderSchedule" component={ShopOrderSchedule} />
+          <Route path="/ShopOrderHeader" component={ShopOrderHeader} />
         </div>
       </Router>
     );
