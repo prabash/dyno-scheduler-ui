@@ -6,6 +6,7 @@ import {
   getWCSchedule,
   getWCScheduleTest
 } from "../../Services/GetShopOrderScheduleService";
+import ShopOrderSchedulerAppointmentCell from "./ShopOrderSchedulerAppointmentCell";
 
 /* CSS */
 import "./ShopOrderSchedule.css";
@@ -29,7 +30,7 @@ class ShopOrderSchedule extends Component {
   }
 
   componentDidMount() {
-    getWCSchedule().then(res => {
+    getWCScheduleTest().then(res => {
       const content = res.data;
       for (var i = 0; i < res.data.length; i++) {
         var obj = res.data[i];
@@ -38,12 +39,13 @@ class ShopOrderSchedule extends Component {
       console.log(content);
       this.setState({ content });
     });
-
     
-
-    getWCScheduleTest().then(res => {
-      const test = res.data;
-      this.formatShopOrderOperationData(test);
+    getWCSchedule().then(res => {
+      // get the service data
+      const serviceData = res.data;
+      // send the service data to be formatted
+      this.formatShopOrderOperationData(serviceData);
+      
     });
   }
 
@@ -94,6 +96,7 @@ class ShopOrderSchedule extends Component {
 
     this.setState({ soOperations, shopOrders, workCenters});
   }
+  
 
   getRandomColor (){
     var letters = '0123456789ABCDEF';
@@ -117,6 +120,7 @@ class ShopOrderSchedule extends Component {
               id="work-center-schedule"
               dataSource={soOperations}
               views={views}
+              //appointmentComponent={ShopOrderSchedulerAppointmentCell}
               defaultCurrentView={"timelineMonth"}
               defaultCurrentDate={currentDate}
               height={600}
