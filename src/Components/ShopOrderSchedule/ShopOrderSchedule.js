@@ -48,7 +48,6 @@ class ShopOrderSchedule extends Component {
       const serviceData = res.data;
       // send the service data to be formatted
       this.formatShopOrderOperationData(serviceData);
-      
     });
   }
 

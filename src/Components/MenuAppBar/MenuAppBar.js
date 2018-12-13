@@ -10,7 +10,9 @@ import MenuItem from "@material-ui/core/MenuItem";
 import Menu from "@material-ui/core/Menu";
 import InputBase from "@material-ui/core/InputBase";
 import SearchIcon from "@material-ui/icons/Search";
+import TextField from "@material-ui/core/TextField";
 import { fade } from "@material-ui/core/styles/colorManipulator";
+import { Container, Row, Col } from "react-grid-system";
 
 const styles = theme => ({
   root: {
@@ -18,7 +20,7 @@ const styles = theme => ({
   },
   grow: {
     flexGrow: 1,
-    marginLeft: 75,
+    marginLeft: 75
   },
   search: {
     position: "relative",
@@ -58,14 +60,38 @@ const styles = theme => ({
     [theme.breakpoints.up("md")]: {
       width: 200
     }
+  },
+  selectorContainer: {
+    position: "relative",
+    borderRadius: theme.shape.borderRadius,
+    marginBottom: 10
+  },
+  selectorTextContainer: {
+    marginTop: 25,
+    marginLeft: 25
+  },
+  fab: {
+    margin: theme.spacing.unit
+  },
+  selector: {
+    display: "inline-block"
+  },
+  textField: {
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
   }
 });
 
 class MenuAppBar extends React.Component {
-  state = {
-    auth: true,
-    anchorEl: null
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      auth: true,
+      anchorEl: null,
+      orderno: 1
+    };
+  }
 
   handleChange = event => {
     this.setState({ auth: event.target.checked });
@@ -81,7 +107,7 @@ class MenuAppBar extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { auth, anchorEl } = this.state;
+    const { auth, anchorEl, orderNos, orderno } = this.state;
     const open = Boolean(anchorEl);
 
     return (
@@ -91,6 +117,43 @@ class MenuAppBar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {this.props.titleText}
             </Typography>
+            {this.props.titleText == "Shop Order" ? (
+              <Container>
+                <Row>
+                  <Col>
+                    <div className={classes.selectorTextContainer}>
+                      <label>Order No</label>
+                    </div>
+                  </Col>
+                  <Col>
+                    <div className={classes.selectorContainer}>
+                      <div className={classes.selector}>
+                        <TextField
+                          id="standard-select-orderno"
+                          select
+                          className={classes.textField}
+                          SelectProps={{
+                            MenuProps: {
+                              className: classes.menu
+                            }
+                          }}
+                          value={this.props.currentOrderNo}
+                          onChange={this.props.orderNoChangedEvent("orderno")}
+                          margin="normal"
+                          variant="standard"
+                        >
+                          {this.props.shopOrderIds.map(option => (
+                            <MenuItem key={option.value} value={option.value}>
+                              {option.label}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </div>
+                    </div>
+                  </Col>
+                </Row>
+              </Container>
+            ) : null}
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
