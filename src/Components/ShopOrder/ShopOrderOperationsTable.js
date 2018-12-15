@@ -1,22 +1,25 @@
-import React from 'react';
-import Button from 'devextreme-react/button';
-import DataGrid, { Column, Editing, Paging, Lookup } from 'devextreme-react/data-grid';
-
-import { employees, states } from './data';
+import React from "react";
+import Button from "devextreme-react/button";
+import DataGrid, {
+  Column,
+  Editing,
+  Paging,
+  Lookup
+} from "devextreme-react/data-grid";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = { events: [] };
   }
-  
+
   render() {
     return (
       <React.Fragment>
         <DataGrid
-          id={'gridContainer'}
-          dataSource={employees}
-          keyExpr={'ID'}
+          id={"gridContainer"}
+          dataSource={this.props.shopOrderOperations}
+          keyExpr={"operationId"}
           allowColumnReordering={true}
           showBorders={true}
           onEditingStart={this.onEditingStart}
@@ -26,30 +29,31 @@ class App extends React.Component {
           onRowUpdating={this.onRowUpdating}
           onRowUpdated={this.onRowUpdated}
           onRowRemoving={this.onRowRemoving}
-          onRowRemoved={this.onRowRemoved}>
-
+          onRowRemoved={this.onRowRemoved}
+        >
           <Paging enabled={true} />
           <Editing
-            mode={'row'}
+            mode={"row"}
             allowUpdating={true}
             allowDeleting={true}
-            allowAdding={true} />
+            allowAdding={true}
+          />
 
-          <Column dataField={'Prefix'} caption={'Title'} />
-          <Column dataField={'FirstName'} />
-          <Column dataField={'LastName'} />
-          <Column dataField={'Position'} width={130} />
-          <Column
-            dataField={'StateID'}
-            caption={'State'}
-            width={125}
-          >
-            <Lookup dataSource={states} displayExpr={'Name'} valueExpr={'ID'} />
-          </Column>
-          <Column
-            dataField={'BirthDate'}
-            width={125}
-            dataType={'date'} />
+          <Column dataField={"operationId"} />
+          <Column dataField={"operationNo"} />
+          <Column dataField={"operationSequence"} />
+          <Column dataField={"operationDescription"} />
+          <Column dataField={"precedingOperationId"} />
+          <Column dataField={"workCenterRuntimeFactor"} />
+          <Column dataField={"workCenterRuntime"} />
+          <Column dataField={"laborRuntimeFactor"} />
+          <Column dataField={"laborRunTime"} />
+          <Column dataField={"opStartDateTime"} dataType={"datetime"} />
+          <Column dataField={"opFinishDateTime"} dataType={"datetime"} />
+          <Column dataField={"quantity"} />
+          <Column dataField={"workCenterType"} />
+          <Column dataField={"workCenterNo"} />
+          <Column dataField={"operationStatus"} />
         </DataGrid>
       </React.Fragment>
     );

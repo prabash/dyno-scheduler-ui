@@ -4,6 +4,7 @@ import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
 import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
+import InputAdornment from "@material-ui/core/InputAdornment";
 
 const styles = theme => ({
   container: {
@@ -47,12 +48,16 @@ const currencies = [
 ];
 
 class ShopOrderHeaderForm extends React.Component {
-  state = {
-    name: "Cat in the Hat",
-    age: "",
-    multiline: "Controlled",
-    currency: "EUR"
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      name: "Cat in the Hat",
+      age: "",
+      multiline: "Controlled",
+      currency: "EUR",
+      currentShopOrder: {}
+    };
+  }
 
   handleChange = name => event => {
     this.setState({
@@ -62,224 +67,233 @@ class ShopOrderHeaderForm extends React.Component {
 
   render() {
     const { classes } = this.props;
-
+    const { currentShopOrder } = this.state;
     return (
-        <form className={classes.container} noValidate autoComplete="off">
+      <form className={classes.container} noValidate autoComplete="off">
         <TextField
-          id="standard-name"
-          label="Name"
+          id="order-no"
+          label="Order No"
+          defaultValue=" "
+          value={this.props.shopOrderDetails.orderNo}
           className={classes.textField}
-          value={this.state.name}
-          onChange={this.handleChange('name')}
+          onChange={this.handleChange("orderNo")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          id="standard-uncontrolled"
-          label="Uncontrolled"
-          defaultValue="foo"
+          id="description"
+          label="Description"
+          defaultValue=" "
+          value={this.props.shopOrderDetails.description}
           className={classes.textField}
+          onChange={this.handleChange("description")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          required
-          id="standard-required"
-          label="Required"
-          defaultValue="Hello World"
+          id="created-date"
+          label="Created Date"
+          type="date"
+          defaultValue="2000-01-01"
+          value={this.props.shopOrderDetails.createdDate}
           className={classes.textField}
+          onChange={this.handleChange("createdDate")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          error
-          id="standard-error"
-          label="Error"
-          defaultValue="Hello World"
+          id="part-no"
+          label="Part No"
+          defaultValue=" "
+          value={this.props.shopOrderDetails.partNo}
           className={classes.textField}
+          onChange={this.handleChange("partNo")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          disabled
-          id="standard-disabled"
-          label="Disabled"
-          defaultValue="Hello World"
+          id="structure-revision"
+          label="Structure Revision"
+          defaultValue=" "
+          value={this.props.shopOrderDetails.structureRevision}
           className={classes.textField}
+          onChange={this.handleChange("structureRevision")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          id="standard-email-input"
-          label="Email"
+          id="routing-revision"
+          label="Routing Revision"
+          defaultValue=" "
+          value={this.props.shopOrderDetails.routingRevision}
           className={classes.textField}
-          type="email"
-          name="email"
-          autoComplete="email"
+          onChange={this.handleChange("routingRevision")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          id="standard-password-input"
-          label="Password"
+          id="required-date"
+          label="Required Date"
+          type="date"
+          defaultValue="2000-01-01"
+          value={this.props.shopOrderDetails.requiredDate}
           className={classes.textField}
-          type="password"
-          autoComplete="current-password"
+          onChange={this.handleChange("requiredDate")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          id="standard-read-only-input"
-          label="Read Only"
-          defaultValue="Hello World"
+          id="start-date"
+          label="Start Date"
+          type="date"
+          defaultValue="2000-01-01"
+          value={this.props.shopOrderDetails.startDate}
           className={classes.textField}
-          margin="normal"
-          InputProps={{
-            readOnly: true,
-          }}
-          variant="standard"
-        />
-        <TextField
-          id="standard-dense"
-          label="Dense"
-          className={classNames(classes.textField, classes.dense)}
-          margin="dense"
-          variant="standard"
-        />
-        <TextField
-          id="standard-multiline-flexible"
-          label="Multiline"
-          multiline
-          rowsMax="4"
-          value={this.state.multiline}
-          onChange={this.handleChange('multiline')}
-          className={classes.textField}
-          margin="normal"
-          helperText="hello"
-          variant="standard"
-        />
-        <TextField
-          id="standard-multiline-static"
-          label="Multiline"
-          multiline
-          rows="4"
-          defaultValue="Default Value"
-          className={classes.textField}
+          onChange={this.handleChange("startDate")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          id="standard-helperText"
-          label="Helper text"
-          defaultValue="Default Value"
+          id="finish-date"
+          label="Finish Date"
+          type="date"
+          defaultValue="2000-01-01"
+          value={this.props.shopOrderDetails.finishDate}
           className={classes.textField}
-          helperText="Some important text"
+          onChange={this.handleChange("finishDate")}
           margin="normal"
           variant="standard"
         />
         <TextField
-          id="standard-with-placeholder"
-          label="With placeholder"
-          placeholder="Placeholder"
-          className={classes.textField}
-          margin="normal"
-          variant="standard"
-        />
-        <TextField
-          id="standard-textarea"
-          label="Multiline Placeholder"
-          placeholder="Placeholder"
-          multiline
-          className={classes.textField}
-          margin="normal"
-          variant="standard"
-        />
-        <TextField
-          id="standard-number"
-          label="Number"
-          value={this.state.age}
-          onChange={this.handleChange('age')}
-          type="number"
-          className={classes.textField}
-          InputLabelProps={{
-            shrink: true,
-          }}
-          margin="normal"
-          variant="standard"
-        />
-        <TextField
-          id="standard-search"
-          label="Search field"
-          type="search"
-          className={classes.textField}
-          margin="normal"
-          variant="standard"
-        />
-        <TextField
-          id="standard-select-currency"
           select
-          label="Select"
+          id="scheduling-direction"
+          label="Scheduling Direction"
+          InputProps={{
+            startAdornment: <InputAdornment variant="filled" position="end" />
+          }}
           className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange('currency')}
           SelectProps={{
             MenuProps: {
-              className: classes.menu,
-            },
+              className: classes
+            }
           }}
-          helperText="Please select your currency"
+          value={this.props.shopOrderDetails.schedulingDirection}
+          onChange={this.handleChange("schedulingDirection")}
           margin="normal"
           variant="standard"
         >
-          {currencies.map(option => (
+          {this.props.schedulingDirectionList.map(option => (
             <MenuItem key={option.value} value={option.value}>
               {option.label}
             </MenuItem>
           ))}
         </TextField>
         <TextField
-          id="standard-select-currency-native"
-          select
-          label="Native select"
+          id="customer-no"
+          label="Customer No"
+          defaultValue=" "
+          value={this.props.shopOrderDetails.customerNo}
           className={classes.textField}
-          value={this.state.currency}
-          onChange={this.handleChange('currency')}
-          SelectProps={{
-            native: true,
-            MenuProps: {
-              className: classes.menu,
-            },
+          onChange={this.handleChange("customerNo")}
+          margin="normal"
+          variant="standard"
+        />
+        <TextField
+          select
+          id="scheduling-status"
+          label="Scheduling Status"
+          InputProps={{
+            startAdornment: <InputAdornment variant="filled" position="end" />
           }}
-          helperText="Please select your currency"
+          className={classes.textField}
+          SelectProps={{
+            MenuProps: {
+              className: classes
+            }
+          }}
+          value={this.props.shopOrderDetails.schedulingStatus}
+          onChange={this.handleChange("schedulingStatus")}
           margin="normal"
           variant="standard"
         >
-          {currencies.map(option => (
-            <option key={option.value} value={option.value}>
+          {this.props.schedulingStatusList.map(option => (
+            <MenuItem key={option.value} value={option.value}>
               {option.label}
-            </option>
+            </MenuItem>
           ))}
         </TextField>
         <TextField
-          id="standard-full-width"
-          label="Label"
-          style={{ margin: 8 }}
-          placeholder="Placeholder"
-          helperText="Full width!"
-          fullWidth
-          margin="normal"
-          variant="standard"
-          InputLabelProps={{
-            shrink: true,
+          select
+          id="shop-order-status"
+          label="Shop Order Status"
+          InputProps={{
+            startAdornment: <InputAdornment variant="filled" position="end" />
           }}
-        />
-        <TextField
-          id="standard-bare"
           className={classes.textField}
-          defaultValue="Bare"
+          SelectProps={{
+            MenuProps: {
+              className: classes
+            }
+          }}
+          value={this.props.shopOrderDetails.shopOrderStatus}
+          onChange={this.handleChange("shopOrderStatus")}
           margin="normal"
           variant="standard"
-        />
+        >
+          {this.props.shopOrderStatusList.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          select
+          id="priority"
+          label="Priority"
+          InputProps={{
+            startAdornment: <InputAdornment variant="filled" position="end" />
+          }}
+          className={classes.textField}
+          SelectProps={{
+            MenuProps: {
+              className: classes
+            }
+          }}
+          value={this.props.shopOrderDetails.priority}
+          onChange={this.handleChange("priority")}
+          margin="normal"
+          variant="standard"
+        >
+          {this.props.priorityList.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
+        <TextField
+          select
+          id="revenue-value"
+          label="Revenue Value"
+          InputProps={{
+            startAdornment: <InputAdornment variant="filled" position="end" />
+          }}
+          className={classes.textField}
+          SelectProps={{
+            MenuProps: {
+              className: classes
+            }
+          }}
+          value={this.props.shopOrderDetails.revenueValue}
+          onChange={this.handleChange("priority")}
+          margin="normal"
+          variant="standard"
+        >
+          {this.props.revenueValueList.map(option => (
+            <MenuItem key={option.value} value={option.value}>
+              {option.label}
+            </MenuItem>
+          ))}
+        </TextField>
       </form>
     );
   }

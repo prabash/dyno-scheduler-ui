@@ -1,10 +1,11 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
+import PropTypes, { func } from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-
 import { Container, Row, Col } from "react-grid-system";
+import { formatDate } from "../../Global/DateTimeUtil";
+import { employees, states } from './data';
 
 /* CSS */
 import "./ShopOrderHeader.css";
@@ -22,6 +23,81 @@ const styles = theme => ({
   fab: {}
 });
 
+const schedulingDirectionList = [
+  {
+    value: "Forward",
+    label: "Forward Direction"
+  },
+  {
+    value: "Backward",
+    label: "Backward Direction"
+  }
+];
+
+const schedulingStatusList = [
+  {
+    value: "Unscheduled",
+    label: "Unscheduled"
+  },
+  {
+    value: "Scheduled",
+    label: "Scheduled"
+  }
+];
+
+const shopOrderStatusList = [
+  {
+    value: "Created",
+    label: "Created"
+  },
+  {
+    value: "InProgress",
+    label: "In Progress"
+  },
+  {
+    value: "Completed",
+    label: "Completed"
+  }
+];
+
+const priorityList = [
+  {
+    value: "High",
+    label: "High"
+  },
+  {
+    value: "Medium",
+    label: "Medium"
+  },
+  {
+    value: "Low",
+    label: "Low"
+  }
+];
+
+const revenueValueList = [
+  {
+    value: "5",
+    label: "Very High"
+  },
+  {
+    value: "4",
+    label: "High"
+  },
+  {
+    value: "3",
+    label: "Medium"
+  },
+  {
+    value: "2",
+    label: "Low"
+  },
+  {
+    value: "1",
+    label: "Very Low"
+  }
+];
+
 class ShopOrderHeader extends Component {
   constructor(props) {
     super(props);
@@ -29,7 +105,8 @@ class ShopOrderHeader extends Component {
     this.state = {
       shopOrderNos: [],
       shopOrders: [],
-      selectedOrderNo: 0
+      selectedOrderNo: 0,
+      currentShopOrder: {}
     };
   }
 
@@ -58,16 +135,16 @@ class ShopOrderHeader extends Component {
     });
     for (var i = 0; i < currentData.length; i++) {
       var soObject = currentData[i];
-      let shopOrder = {
-        id: soObject.orderNo,
-        text: "Order " + soObject.orderNo + " : " + soObject.description
-      };
+      soObject.createdDate = formatDate(new Date(soObject.createdDate));
+      soObject.requiredDate = formatDate(new Date(soObject.requiredDate));
+      soObject.startDate = formatDate(new Date(soObject.startDate));
+      soObject.finishDate = formatDate(new Date(soObject.finishDate));
 
       shopOrderNos.push({
         value: soObject.orderNo,
         label: soObject.orderNo
       });
-      shopOrders.push(shopOrder);
+      shopOrders.push(soObject);
     }
 
     console.log(shopOrderNos);
@@ -76,15 +153,33 @@ class ShopOrderHeader extends Component {
   }
 
   onShopOrderNoChanged = name => event => {
+    var selectedOrderNo = event.target.value;
     this.setState({
-      selectedOrderNo: event.target.value
+      selectedOrderNo: selectedOrderNo
+    });
+
+    var filteredData = this.state.shopOrders.filter(
+      field => field.orderNo == selectedOrderNo
+    );
+    console.log(filteredData[0]);
+    var currentShopOrder = {};
+    if (filteredData[0]) {
+      currentShopOrder = filteredData[0];
+    }
+    this.setState({
+      currentShopOrder: currentShopOrder
     });
   };
 
   render() {
     const { classes } = this.props;
 
-    const { shopOrderNos, shopOrders, selectedOrderNo } = this.state;
+    const {
+      shopOrderNos,
+      shopOrders,
+      selectedOrderNo,
+      currentShopOrder
+    } = this.state;
     return (
       <div className="App">
         <MenuAppBar
@@ -97,9 +192,9 @@ class ShopOrderHeader extends Component {
         <main id="page-wrap">
           <div>
             <Row>
-              <Col md={11}/>
+              <Col md={11} />
               <Col md={1}>
-                <div style={{ marginRight: 5}}>
+                <div style={{ marginRight: 5 }}>
                   <Fab
                     color="secondary"
                     aria-label="Add"
@@ -113,8 +208,22 @@ class ShopOrderHeader extends Component {
           </div>
 
           <h1>Shop Order</h1>
-          <ShopOrderHeaderForm />
-          <ShopOrderOperationsTable />
+          <div>
+            <Row>
+              <ShopOrderHeaderForm
+                shopOrderDetails={currentShopOrder}
+                schedulingDirectionList={schedulingDirectionList}
+                schedulingStatusList={schedulingStatusList}
+                shopOrderStatusList={shopOrderStatusList}
+                priorityList={priorityList}
+                revenueValueList={revenueValueList}
+              />
+            </Row>
+            <Row>&nbsp;</Row>
+            <Row>
+              <ShopOrderOperationsTable shopOrderOperations={currentShopOrder.operations}/>
+            </Row>
+          </div>
         </main>
       </div>
     );
