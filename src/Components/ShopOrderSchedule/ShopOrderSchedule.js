@@ -75,6 +75,7 @@ class ShopOrderSchedule extends Component {
       shopOrders.push(shopOrder);
       for (var j = 0; j < soObject.operations.length; j++) {
         var operationObj = soObject.operations[j];
+        operationObj.appointmentHeader = "OP No: " + operationObj.operationId + ", WC No: " + operationObj.workCenterNo;
         soOperations.push(operationObj);
 
         let workCenter = {
@@ -132,7 +133,7 @@ class ShopOrderSchedule extends Component {
               firstDayOfWeek={0}
               startDayHour={8}
               endDayHour={17}
-              textExpr={"operationId"}
+              textExpr={"appointmentHeader"}
               startDateExpr={"opStartDateTime"}
               endDateExpr={"opFinishDateTime"}
             >
