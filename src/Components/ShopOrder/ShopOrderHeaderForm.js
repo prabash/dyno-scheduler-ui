@@ -28,24 +28,6 @@ const styles = theme => ({
   }
 });
 
-const currencies = [
-  {
-    value: "USD",
-    label: "$"
-  },
-  {
-    value: "EUR",
-    label: "€"
-  },
-  {
-    value: "BTC",
-    label: "฿"
-  },
-  {
-    value: "JPY",
-    label: "¥"
-  }
-];
 
 class ShopOrderHeaderForm extends React.Component {
   constructor(props) {

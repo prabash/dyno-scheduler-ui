@@ -105,6 +105,132 @@ class MenuAppBar extends React.Component {
     this.setState({ anchorEl: null });
   };
 
+  renderSwitch(param) {
+    const { classes } = this.props;
+    switch (param) {
+      case "Shop Order":
+        return (
+          <Container>
+            <Row>
+              <Col>
+                <div className={classes.selectorTextContainer}>
+                  <label>Order No</label>
+                </div>
+              </Col>
+              <Col>
+                <div className={classes.selectorContainer}>
+                  <div className={classes.selector}>
+                    <TextField
+                      id="standard-select-orderno"
+                      select
+                      className={classes.textField}
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu
+                        }
+                      }}
+                      value={this.props.currentOrderNo}
+                      onChange={this.props.orderNoChangedEvent("orderno")}
+                      margin="normal"
+                      variant="standard"
+                    >
+                      {this.props.shopOrderIds.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        );
+      case "Work Center":
+        return (
+          <Container>
+            <Row>
+              <Col>
+                <div className={classes.selectorTextContainer}>
+                  <label>Work Center No</label>
+                </div>
+              </Col>
+              <Col>
+                <div className={classes.selectorContainer}>
+                  <div className={classes.selector}>
+                    <TextField
+                      id="standard-select-workcenterno"
+                      select
+                      className={classes.textField}
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu
+                        }
+                      }}
+                      value={this.props.currentWorkCenterNo}
+                      onChange={this.props.workCenterNoChangedEvent(
+                        "workcenterno"
+                      )}
+                      margin="normal"
+                      variant="standard"
+                    >
+                      {this.props.workCenterNos.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        );
+      case "Part Details":
+        return (
+          <Container>
+            <Row>
+              <Col>
+                <div className={classes.selectorTextContainer}>
+                  <label>Part No</label>
+                </div>
+              </Col>
+              <Col>
+                <div className={classes.selectorContainer}>
+                  <div className={classes.selector}>
+                    <TextField
+                      id="standard-select-partno"
+                      select
+                      className={classes.textField}
+                      SelectProps={{
+                        MenuProps: {
+                          className: classes.menu
+                        }
+                      }}
+                      value={this.props.currentPartNo}
+                      onChange={this.props.partNoChangedEvent(
+                        "partno"
+                      )}
+                      margin="normal"
+                      variant="standard"
+                    >
+                      {this.props.partNos.map(option => (
+                        <MenuItem key={option.value} value={option.value}>
+                          {option.label}
+                        </MenuItem>
+                      ))}
+                    </TextField>
+                  </div>
+                </div>
+              </Col>
+            </Row>
+          </Container>
+        );
+      default:
+        return null;
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { auth, anchorEl, orderNos, orderno } = this.state;
@@ -117,43 +243,7 @@ class MenuAppBar extends React.Component {
             <Typography variant="h6" color="inherit" className={classes.grow}>
               {this.props.titleText}
             </Typography>
-            {this.props.titleText == "Shop Order" ? (
-              <Container>
-                <Row>
-                  <Col>
-                    <div className={classes.selectorTextContainer}>
-                      <label>Order No</label>
-                    </div>
-                  </Col>
-                  <Col>
-                    <div className={classes.selectorContainer}>
-                      <div className={classes.selector}>
-                        <TextField
-                          id="standard-select-orderno"
-                          select
-                          className={classes.textField}
-                          SelectProps={{
-                            MenuProps: {
-                              className: classes.menu
-                            }
-                          }}
-                          value={this.props.currentOrderNo}
-                          onChange={this.props.orderNoChangedEvent("orderno")}
-                          margin="normal"
-                          variant="standard"
-                        >
-                          {this.props.shopOrderIds.map(option => (
-                            <MenuItem key={option.value} value={option.value}>
-                              {option.label}
-                            </MenuItem>
-                          ))}
-                        </TextField>
-                      </div>
-                    </div>
-                  </Col>
-                </Row>
-              </Container>
-            ) : null}
+            {this.renderSwitch(this.props.titleText)}
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
