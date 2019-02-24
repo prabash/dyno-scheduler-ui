@@ -13,6 +13,27 @@ class PartUnavailabilityTable extends React.Component {
     this.state = { events: [] };
   }
 
+  onRowInserting = event => {
+    let unavailabilityDetails = {
+        "partNo": event.data.partNo,
+        "unavailableFromDate": event.data.unavailableFromDate,
+        "unavailableFromTime": event.data.unavailableFromTime,
+        "unavailableToDate": event.data.unavailableToDate,
+        "unavailableToTime": event.data.unavailableToTime
+    };
+  };
+
+  onRowUpdating = event => {
+    let unavailabilityDetails = {
+        "id": event.data.id,
+        "partNo": event.data.partNo,
+        "unavailableFromDate": event.data.unavailableFromDate,
+        "unavailableFromTime": event.data.unavailableFromTime,
+        "unavailableToDate": event.data.unavailableToDate,
+        "unavailableToTime": event.data.unavailableToTime
+    };
+  };
+
   render() {
     return (
       <React.Fragment>

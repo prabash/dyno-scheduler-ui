@@ -13,6 +13,27 @@ class WorkCenterInterruptionsTable extends React.Component {
     this.state = { events: [] };
   }
 
+  onRowInserting = event => {
+    let interruptionDetail = {
+        "workCenterNo": event.data.workCenterNo,
+        "interruptionFromDate": event.data.interruptionFromDate,
+        "interruptionFromTime": event.data.interruptionFromTime,
+        "interruptionToDate": event.data.interruptionToDate,
+        "interruptionToTime": event.data.interruptionToTime
+    };
+  };
+
+  onRowUpdating = event => {
+    let interruptionDetail = {
+        "id": event.data.id,
+        "workCenterNo": event.data.workCenterNo,
+        "interruptionFromDate": event.data.interruptionFromDate,
+        "interruptionFromTime": event.data.interruptionFromTime,
+        "interruptionToDate": event.data.interruptionToDate,
+        "interruptionToTime": event.data.interruptionToTime
+    };
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -39,7 +60,7 @@ class WorkCenterInterruptionsTable extends React.Component {
             allowAdding={true}
           />
 
-          <Column dataField={"id"} />
+          <Column dataField={"id"} enabled={false} />
           <Column dataField={"workCenterNo"} />
           <Column dataField={"interruptionFromDate"} />
           <Column dataField={"interruptionFromTime"} />

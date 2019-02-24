@@ -13,6 +13,47 @@ class App extends React.Component {
     this.state = { events: [] };
   }
 
+  onRowInserting = event => {
+    let shopOrderOperation = {
+        "orderNo": event.data.orderNo,
+        "operationNo": event.data.operationNo,
+        "workCenterNo": event.data.workCenterNo,
+        "workCenterType": event.data.workCenterType,
+        "operationDescription": event.data.operationDescription,
+        "operationSequence": event.data.operationSequence,
+        "precedingOperationId": event.data.precedingOperationId,
+        "workCenterRuntimeFactor": event.data.workCenterRuntimeFactor,
+        "workCenterRuntime": event.data.workCenterRuntime,
+        "laborRuntimeFactor": event.data.laborRuntimeFactor,
+        "laborRunTime": event.data.laborRunTime,
+        "opStartDateTime": event.data.opStartDateTime,
+        "opFinishDateTime": event.data.opFinishDateTime,
+        "quantity": event.data.quantity,
+        "operationStatus": event.data.operationStatus,
+    };
+  };
+
+  onRowUpdating = event => {
+    let shopOrderOperation = {
+      "operationId": event.data.operationId,
+      "orderNo": event.data.orderNo,
+      "operationNo": event.data.operationNo,
+      "workCenterNo": event.data.workCenterNo,
+      "workCenterType": event.data.workCenterType,
+      "operationDescription": event.data.operationDescription,
+      "operationSequence": event.data.operationSequence,
+      "precedingOperationId": event.data.precedingOperationId,
+      "workCenterRuntimeFactor": event.data.workCenterRuntimeFactor,
+      "workCenterRuntime": event.data.workCenterRuntime,
+      "laborRuntimeFactor": event.data.laborRuntimeFactor,
+      "laborRunTime": event.data.laborRunTime,
+      "opStartDateTime": event.data.opStartDateTime,
+      "opFinishDateTime": event.data.opFinishDateTime,
+      "quantity": event.data.quantity,
+      "operationStatus": event.data.operationStatus
+    };
+  };
+
   render() {
     return (
       <React.Fragment>
@@ -40,6 +81,7 @@ class App extends React.Component {
           />
 
           <Column dataField={"operationId"} />
+          <Column dataField={"orderNo"} />
           <Column dataField={"operationNo"} />
           <Column dataField={"operationSequence"} />
           <Column dataField={"operationDescription"} />
