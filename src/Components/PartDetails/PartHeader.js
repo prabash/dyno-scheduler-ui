@@ -131,7 +131,9 @@ class PartHeader extends Component {
             </Row>
             <Row>&nbsp;</Row>
             <Row>
-              <PartUnavailabilityTable partUnavailabilityDetails={currentPart.partUnavailabilityDetails}/>
+              <PartUnavailabilityTable 
+                partDetails={currentPart}
+                partUnavailabilityDetails={currentPart.partUnavailabilityDetails}/>
             </Row>
           </div>
         </main>

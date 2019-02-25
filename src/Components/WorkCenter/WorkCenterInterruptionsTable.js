@@ -6,6 +6,8 @@ import DataGrid, {
   Paging,
   Lookup
 } from "devextreme-react/data-grid";
+import { interruptWorkCenter } from "../../Services/WorkCenterService";
+import { getLocalDate } from "../../Global/DateTimeUtil";
 
 class WorkCenterInterruptionsTable extends React.Component {
   constructor(props) {
@@ -13,24 +15,30 @@ class WorkCenterInterruptionsTable extends React.Component {
     this.state = { events: [] };
   }
 
+  onInitNewRow = event => {
+    event.data.workCenterNo = this.props.workCenterDetails.workCenterNo
+  };
+
   onRowInserting = event => {
     let interruptionDetail = {
+        "id": 0,
         "workCenterNo": event.data.workCenterNo,
-        "interruptionFromDate": event.data.interruptionFromDate,
-        "interruptionFromTime": event.data.interruptionFromTime,
-        "interruptionToDate": event.data.interruptionToDate,
-        "interruptionToTime": event.data.interruptionToTime
+        "interruptionFromDateTime": getLocalDate(event.data.interruptionFromDateTime),
+        "interruptionToDateTime": getLocalDate(event.data.interruptionToDateTime)
     };
+    interruptWorkCenter(interruptionDetail).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
   };
 
   onRowUpdating = event => {
     let interruptionDetail = {
         "id": event.data.id,
         "workCenterNo": event.data.workCenterNo,
-        "interruptionFromDate": event.data.interruptionFromDate,
-        "interruptionFromTime": event.data.interruptionFromTime,
-        "interruptionToDate": event.data.interruptionToDate,
-        "interruptionToTime": event.data.interruptionToTime
+        "interruptionFromDateTime": event.data.interruptionFromDateTime,
+        "interruptionToDateTime": event.data.interruptionToDateTime
     };
   };
 
@@ -60,12 +68,10 @@ class WorkCenterInterruptionsTable extends React.Component {
             allowAdding={true}
           />
 
-          <Column dataField={"id"} enabled={false} />
+          <Column dataField={"id"} />
           <Column dataField={"workCenterNo"} />
-          <Column dataField={"interruptionFromDate"} />
-          <Column dataField={"interruptionFromTime"} />
-          <Column dataField={"interruptionToDate"} />
-          <Column dataField={"interruptionToTime"} />
+          <Column dataField={"interruptionFromDateTime"} dataType="datetime" />
+          <Column dataField={"interruptionToDateTime"} dataType="datetime" />
         </DataGrid>
       </React.Fragment>
     );

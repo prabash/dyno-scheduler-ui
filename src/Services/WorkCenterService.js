@@ -1,9 +1,8 @@
 import axios from "axios";
 
-export const interruptWorkCenter = () => {
-    let data = { "workCenter" : "test", "interruptionStartDate" : "2018-08-09", "interruptionEndDate" : "2018-08-10",  };
+export const interruptWorkCenter = (interruptData) => {
     const URL = `http://localhost:8080/api/work-center/interrupt`;
-    return axios.post(URL, data).then(res => res);
+    return axios.post(URL, interruptData).then(res => res);
 }
 
 export const getWCDetails = () => {

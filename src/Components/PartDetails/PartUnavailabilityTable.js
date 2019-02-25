@@ -13,13 +13,15 @@ class PartUnavailabilityTable extends React.Component {
     this.state = { events: [] };
   }
 
+  onInitNewRow = event => {
+    event.data.partNo = this.props.partDetails.partNo
+  }
+
   onRowInserting = event => {
     let unavailabilityDetails = {
         "partNo": event.data.partNo,
-        "unavailableFromDate": event.data.unavailableFromDate,
-        "unavailableFromTime": event.data.unavailableFromTime,
-        "unavailableToDate": event.data.unavailableToDate,
-        "unavailableToTime": event.data.unavailableToTime
+        "unavailableFromDateTime": event.data.unavailableFromDateTime,
+        "unavailableToDateTime": event.data.unavailableToDateTime,
     };
   };
 
@@ -27,10 +29,8 @@ class PartUnavailabilityTable extends React.Component {
     let unavailabilityDetails = {
         "id": event.data.id,
         "partNo": event.data.partNo,
-        "unavailableFromDate": event.data.unavailableFromDate,
-        "unavailableFromTime": event.data.unavailableFromTime,
-        "unavailableToDate": event.data.unavailableToDate,
-        "unavailableToTime": event.data.unavailableToTime
+        "unavailableFromDateTime": event.data.unavailableFromDateTime,
+        "unavailableToDateTime": event.data.unavailableToDateTime
     };
   };
 
@@ -39,7 +39,7 @@ class PartUnavailabilityTable extends React.Component {
       <React.Fragment>
         <DataGrid
           id={"gridContainer"}
-          dataSource={this.props.workCenterInterruptions}
+          dataSource={this.props.partUnavailabilityDetails}
           keyExpr={"id"}
           allowColumnReordering={true}
           showBorders={true}
@@ -62,10 +62,8 @@ class PartUnavailabilityTable extends React.Component {
 
           <Column dataField={"id"} />
           <Column dataField={"partNo"} />
-          <Column dataField={"unavailableFromDate"} />
-          <Column dataField={"unavailableFromTime"} />
-          <Column dataField={"unavailableToDate"} />
-          <Column dataField={"unavailableToTime"} />
+          <Column dataField={"unavailableFromDateTime"} dataType="datetime" />
+          <Column dataField={"unavailableToDateTime"} dataType="datetime" />
         </DataGrid>
       </React.Fragment>
     );

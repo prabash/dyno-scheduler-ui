@@ -1,3 +1,6 @@
+
+import moment from "moment-timezone";
+
 export function formatDate(date) {
     var d = new Date(date),
         month = '' + (d.getMonth() + 1),
@@ -9,3 +12,8 @@ export function formatDate(date) {
 
     return [year, month, day].join('-');
 }
+
+export function getLocalDate (datetime) {
+    var utcDateTime = moment(datetime);
+    return utcDateTime.tz("Asia/Colombo").format("YYYY-MM-DD HH:mm:ss");
+  }

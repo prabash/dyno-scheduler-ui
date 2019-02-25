@@ -140,6 +140,7 @@ class WorkCenterHeader extends Component {
             <Row>&nbsp;</Row>
             <Row>
               <WorkCenterInterruptionsTable
+                workCenterDetails={currentWorkCenter}
                 workCenterInterruptions={
                   currentWorkCenter.workCenterInterruptions
                 }
