@@ -2,14 +2,16 @@ import React from "react";
 import PropTypes from "prop-types";
 import classNames from "classnames";
 import { withStyles } from "@material-ui/core/styles";
-import MenuItem from "@material-ui/core/MenuItem";
 import TextField from "@material-ui/core/TextField";
-import InputAdornment from "@material-ui/core/InputAdornment";
+import Fab from "@material-ui/core/Fab";
+import AddIcon from "@material-ui/icons/Add";
+import { Row, Col } from "react-grid-system";
 
 const styles = theme => ({
   container: {
     display: "flex",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
+    marginLeft: theme.spacing.unit,
   },
   textField: {
     marginLeft: theme.spacing.unit,
@@ -25,6 +27,9 @@ const styles = theme => ({
   },
   menu: {
     width: 200
+  },
+  fabContainer: {
+    width: "200%"
   }
 });
 
@@ -48,7 +53,24 @@ class PartHeaderForm extends React.Component {
   render() {
     const { classes } = this.props;
     return (
-      <form className={classes.container} noValidate autoComplete="off">
+      <div className={classes.fabContainer}>
+        <Row>
+          <Col md={11} />
+          <Col md={1}>
+            <div style={{ marginRight: 5 }}>
+              <Fab
+                color="secondary"
+                aria-label="Add"
+                className={classes.fab}
+                onClick={this.onClick}
+              >
+                <AddIcon />
+              </Fab>
+            </div>
+          </Col>
+        </Row>
+        <Row>
+        <form className={classes.container} noValidate autoComplete="off">
         <TextField
           id="part-no"
           label="Part No"
@@ -80,6 +102,8 @@ class PartHeaderForm extends React.Component {
           variant="standard"
         />
       </form>
+        </Row>
+      </div>
     );
   }
 }

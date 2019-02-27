@@ -6,7 +6,6 @@ import AddIcon from "@material-ui/icons/Add";
 import Button from "@material-ui/core/Button";
 import { Container, Row, Col } from "react-grid-system";
 import { formatDate } from "../../Global/DateTimeUtil";
-import { interruptWorkCenter } from "../../Services/GetShopOrderScheduleService";
 import WorkCenterHeaderForm from "./WorkCenterHeaderForm";
 import WorkCenterInterruptionsTable from "./WorkCenterInterruptionsTable";
 
@@ -89,14 +88,6 @@ class WorkCenterHeader extends Component {
     });
   };
 
-  interruptWC = () => event => {
-    interruptWorkCenter().then(res => {
-      // get the service data
-      const serviceData = res.data;
-      alert("Successfully Interrupted Work Center 02");
-    });
-  };
-
   render() {
     const { classes } = this.props;
     const {
@@ -115,23 +106,6 @@ class WorkCenterHeader extends Component {
         />
 
         <main id="page-wrap">
-          <div>
-            <Row>
-              <Col md={11} />
-              <Col md={1}>
-                <div style={{ marginRight: 5 }}>
-                  <Fab
-                    color="secondary"
-                    aria-label="Add"
-                    className={classes.fab}
-                  >
-                    <AddIcon />
-                  </Fab>
-                </div>
-              </Col>
-            </Row>
-          </div>
-
           <h1>Work Center</h1>
           <div>
             <Row>

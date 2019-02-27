@@ -10,8 +10,22 @@ export const getWCSchedule = () => {
     return axios.get(URL).then(res => res);
 }
 
-export const interruptWorkCenter = () => {
-    let data = { "workCenter" : "test", "interruptionStartDate" : "2018-08-09", "interruptionEndDate" : "2018-08-10",  };
-    const URL = `http://localhost:8080/api/work-center/interrupt`;
-    return axios.post(URL, data).then(res => res);
+export const addShopOrder = (shopOrder) => {
+    const URL = `http://localhost:8080/api/work-center/add-shop-order`;
+    return axios.post(URL, shopOrder).then(res => res);
+}
+
+export const updateShopOrder = (shopOrder) => {
+    const URL = `http://localhost:8080/api/work-center/update-shop-order`;
+    return axios.post(URL, shopOrder).then(res => res);
+}
+
+export const addShopOrderOperation = (operationDetails) => {
+    const URL = `http://localhost:8080/api/work-center/add-operation`;
+    return axios.post(URL, operationDetails).then(res => res);
+}
+
+export const updateShopOrderOperation = (operationDetails) => {
+    const URL = `http://localhost:8080/api/work-center/update-operation`;
+    return axios.post(URL, operationDetails).then(res => res);
 }

@@ -190,23 +190,6 @@ class ShopOrderHeader extends Component {
         />
 
         <main id="page-wrap">
-          <div>
-            <Row>
-              <Col md={11} />
-              <Col md={1}>
-                <div style={{ marginRight: 5 }}>
-                  <Fab
-                    color="secondary"
-                    aria-label="Add"
-                    className={classes.fab}
-                  >
-                    <AddIcon />
-                  </Fab>
-                </div>
-              </Col>
-            </Row>
-          </div>
-
           <h1>Shop Order</h1>
           <div>
             <Row>

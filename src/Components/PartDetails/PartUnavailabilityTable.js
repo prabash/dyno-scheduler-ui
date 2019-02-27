@@ -6,6 +6,7 @@ import DataGrid, {
   Paging,
   Lookup
 } from "devextreme-react/data-grid";
+import { addPartUnavailability } from "../../Services/PartDetailsService";
 
 class PartUnavailabilityTable extends React.Component {
   constructor(props) {
@@ -19,10 +20,17 @@ class PartUnavailabilityTable extends React.Component {
 
   onRowInserting = event => {
     let unavailabilityDetails = {
+        "id": 0,
         "partNo": event.data.partNo,
         "unavailableFromDateTime": event.data.unavailableFromDateTime,
         "unavailableToDateTime": event.data.unavailableToDateTime,
     };
+
+    addPartUnavailability(unavailabilityDetails).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
   };
 
   onRowUpdating = event => {
