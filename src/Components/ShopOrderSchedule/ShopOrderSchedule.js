@@ -5,7 +5,7 @@ import { shopOrderOperations } from "../../Services/test";
 import {
   getWCSchedule,
   getWCScheduleTest
-} from "../../Services/GetShopOrderScheduleService";
+} from "../../Services/ShopOrderService";
 import ShopOrderSchedulerAppointmentCell from "./ShopOrderSchedulerAppointmentCell";
 
 /* CSS */

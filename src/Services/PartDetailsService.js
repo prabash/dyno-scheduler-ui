@@ -6,16 +6,16 @@ export const getPartDetails = () => {
 }
 
 export const addPartUnavailability = (unavailabilityData) => {
-    const URL = `http://localhost:8080/api/work-center/add-part-unavailability`;
+    const URL = `http://localhost:8080/api/part-details/add-part-unavailability`;
     return axios.post(URL, unavailabilityData).then(res => res);
 }
 
 export const addPart = (partDetails) => {
-    const URL = `http://localhost:8080/api/work-center/add-part`;
+    const URL = `http://localhost:8080/api/part-details/add-part`;
     return axios.post(URL, partDetails).then(res => res);
 }
 
 export const updatePart = (partDetails) => {
-    const URL = `http://localhost:8080/api/work-center/update-part`;
+    const URL = `http://localhost:8080/api/part-details/update-part`;
     return axios.post(URL, partDetails).then(res => res);
 }

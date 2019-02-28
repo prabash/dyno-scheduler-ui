@@ -7,6 +7,7 @@ import DataGrid, {
   Lookup
 } from "devextreme-react/data-grid";
 import { addPartUnavailability } from "../../Services/PartDetailsService";
+import { getLocalDate } from "../../Global/DateTimeUtil";
 
 class PartUnavailabilityTable extends React.Component {
   constructor(props) {
@@ -22,8 +23,8 @@ class PartUnavailabilityTable extends React.Component {
     let unavailabilityDetails = {
         "id": 0,
         "partNo": event.data.partNo,
-        "unavailableFromDateTime": event.data.unavailableFromDateTime,
-        "unavailableToDateTime": event.data.unavailableToDateTime,
+        "unavailableFromDateTime": getLocalDate(event.data.unavailableFromDateTime),
+        "unavailableToDateTime": getLocalDate(event.data.unavailableToDateTime),
     };
 
     addPartUnavailability(unavailabilityDetails).then(res => {
@@ -37,8 +38,8 @@ class PartUnavailabilityTable extends React.Component {
     let unavailabilityDetails = {
         "id": event.data.id,
         "partNo": event.data.partNo,
-        "unavailableFromDateTime": event.data.unavailableFromDateTime,
-        "unavailableToDateTime": event.data.unavailableToDateTime
+        "unavailableFromDateTime": getLocalDate(event.data.unavailableFromDateTime),
+        "unavailableToDateTime": getLocalDate(event.data.unavailableToDateTime)
     };
   };
 

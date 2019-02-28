@@ -7,7 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import { Container, Row, Col } from "react-grid-system";
+import SaveIcon from "@material-ui/icons/Save";
+import { Row, Col } from "react-grid-system";
+import { addWorkCenter, updateWorkCenter } from "../../Services/WorkCenterService";
 
 const styles = theme => ({
   container: {
@@ -39,11 +41,17 @@ class WorkCenterHeaderForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      name: "Cat in the Hat",
-      age: "",
-      multiline: "Controlled",
-      currency: "EUR"
     };
+  }
+
+  componentWillReceiveProps(nextProps){
+    this.setState({
+      id: nextProps.workCenterDetails.id,
+      workCenterNo: nextProps.workCenterDetails.workCenterNo,
+      workCenterType: nextProps.workCenterDetails.workCenterType,
+      workCenterDescription: nextProps.workCenterDetails.workCenterDescription,
+      workCenterCapacity: nextProps.workCenterDetails.workCenterCapacity
+    })
   }
 
   handleChange = name => event => {
@@ -52,21 +60,63 @@ class WorkCenterHeaderForm extends React.Component {
     });
   };
 
+  onAdd = () => {
+    let workCenterDetails = {
+      "id": 0,
+      "workCenterNo": this.state.workCenterNo,
+      "workCenterType":this.state.workCenterType,
+      "workCenterDescription": this.state.workCenterDescription,
+      "workCenterCapacity": this.state.workCenterCapacity
+    };
+    addWorkCenter(workCenterDetails).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
+  };
+
+  onUpdate = () => {
+    let workCenterDetails = {
+      "id": this.state.id,
+      "workCenterNo": this.state.workCenterNo,
+      "workCenterType":this.state.workCenterType,
+      "workCenterDescription": this.state.workCenterDescription,
+      "workCenterCapacity": this.state.workCenterCapacity
+    };
+    updateWorkCenter(workCenterDetails).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
+  };
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.fabContainer}>
         <Row>
-          <Col md={11} />
+          <Col md={10} />
           <Col md={1}>
             <div style={{ marginRight: 5 }}>
               <Fab
                 color="secondary"
                 aria-label="Add"
                 className={classes.fab}
-                onClick={this.onClick}
+                onClick={this.onAdd}
               >
                 <AddIcon />
+              </Fab>
+            </div>
+          </Col>
+          <Col md={1}>
+            <div style={{ alignContent: "center" }}>
+              <Fab
+                color="secondary"
+                aria-label="Add"
+                className={classes.fab}
+                onClick={this.onUpdate}
+              >
+                <SaveIcon />
               </Fab>
             </div>
           </Col>
@@ -74,10 +124,20 @@ class WorkCenterHeaderForm extends React.Component {
         <Row>
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
+              id="work-center-id"
+              label="ID"
+              defaultValue=" "
+              value={this.state.id}
+              className={classes.textField}
+              margin="normal"
+              variant="standard"
+              disabled
+            />
+            <TextField
               id="work-center-no"
               label="Work Center No"
               defaultValue=" "
-              value={this.props.workCenterDetails.workCenterNo}
+              value={this.state.workCenterNo}
               className={classes.textField}
               onChange={this.handleChange("workCenterNo")}
               margin="normal"
@@ -87,7 +147,7 @@ class WorkCenterHeaderForm extends React.Component {
               id="work-center-type"
               label="Work Center Type"
               defaultValue=" "
-              value={this.props.workCenterDetails.workCenterType}
+              value={this.state.workCenterType}
               className={classes.textField}
               onChange={this.handleChange("workCenterType")}
               margin="normal"
@@ -97,7 +157,7 @@ class WorkCenterHeaderForm extends React.Component {
               id="work-center-description"
               label="Description"
               defaultValue=" "
-              value={this.props.workCenterDetails.workCenterDescription}
+              value={this.state.workCenterDescription}
               className={classes.textField}
               onChange={this.handleChange("workCenterDescription")}
               margin="normal"
@@ -107,7 +167,7 @@ class WorkCenterHeaderForm extends React.Component {
               id="work-center-capacity"
               label="Capacity Type"
               defaultValue=" "
-              value={this.props.workCenterDetails.workCenterCapacity}
+              value={this.state.workCenterCapacity}
               className={classes.textField}
               onChange={this.handleChange("workCenterCapacity")}
               margin="normal"

@@ -7,7 +7,9 @@ import TextField from "@material-ui/core/TextField";
 import InputAdornment from "@material-ui/core/InputAdornment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
-import { Container, Row, Col } from "react-grid-system";
+import SaveIcon from "@material-ui/icons/Save";
+import { Row, Col } from "react-grid-system";
+import { addShopOrder, updateShopOrder } from "../../Services/ShopOrderService";
 
 const styles = theme => ({
   container: {
@@ -53,22 +55,106 @@ class ShopOrderHeaderForm extends React.Component {
     });
   };
 
+  componentWillReceiveProps(nextProps) {
+    this.setState({
+      id: nextProps.shopOrderDetails.id,
+      orderNo: nextProps.shopOrderDetails.orderNo,
+      description: nextProps.shopOrderDetails.description,
+      createdDate: nextProps.shopOrderDetails.createdDate,
+      partNo: nextProps.shopOrderDetails.partNo,
+      structureRevision: nextProps.shopOrderDetails.structureRevision,
+      routingRevision: nextProps.shopOrderDetails.routingRevision,
+      requiredDate: nextProps.shopOrderDetails.requiredDate,
+      startDate: nextProps.shopOrderDetails.startDate,
+      finishDate: nextProps.shopOrderDetails.finishDate,
+      schedulingDirection: nextProps.shopOrderDetails.schedulingDirection,
+      customerNo: nextProps.shopOrderDetails.customerNo,
+      schedulingStatus: nextProps.shopOrderDetails.schedulingStatus,
+      shopOrderStatus: nextProps.shopOrderDetails.shopOrderStatus,
+      priority: nextProps.shopOrderDetails.priority,
+      revenueValue: nextProps.shopOrderDetails.revenueValue,
+    });
+  }
+
+  onAdd = () => {
+    let shopOrderDetails = {
+      "id": 0,
+      "orderNo": this.state.orderNo,
+      "description":this.state.description,
+      "createdDate": this.state.createdDate,
+      "partNo": this.state.partNo,
+      "structureRevision": this.state.structureRevision,
+      "routingRevision": this.state.routingRevision,
+      "requiredDate": this.state.requiredDate,
+      "startDate": this.state.startDate,
+      "finishDate": this.state.finishDate,
+      "schedulingDirection": this.state.schedulingDirection,
+      "customerNo": this.state.customerNo,
+      "schedulingStatus": this.state.schedulingStatus,
+      "shopOrderStatus": this.state.shopOrderStatus,
+      "priority": this.state.priority,
+      "revenueValue": this.state.revenueValue
+    };
+    addShopOrder(shopOrderDetails).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
+  };
+
+  onUpdate = () => {
+    let shopOrderDetails = {
+      "id": this.state.id,
+      "orderNo": this.state.orderNo,
+      "description":this.state.description,
+      "createdDate": this.state.createdDate,
+      "partNo": this.state.partNo,
+      "structureRevision": this.state.structureRevision,
+      "routingRevision": this.state.routingRevision,
+      "requiredDate": this.state.requiredDate,
+      "startDate": this.state.startDate,
+      "finishDate": this.state.finishDate,
+      "schedulingDirection": this.state.schedulingDirection,
+      "customerNo": this.state.customerNo,
+      "schedulingStatus": this.state.schedulingStatus,
+      "shopOrderStatus": this.state.shopOrderStatus,
+      "priority": this.state.priority,
+      "revenueValue": this.state.revenueValue
+    };
+    updateShopOrder(shopOrderDetails).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
+  };
+
   render() {
     const { classes } = this.props;
-    const { currentShopOrder } = this.state;
     return (
       <div className={classes.fabContainer}>
         <Row>
-          <Col md={11} />
+          <Col md={10} />
           <Col md={1}>
             <div style={{ marginRight: 5 }}>
               <Fab
                 color="secondary"
                 aria-label="Add"
                 className={classes.fab}
-                onClick={this.onClick}
+                onClick={this.onAdd}
               >
                 <AddIcon />
+              </Fab>
+            </div>
+          </Col>
+          <Col md={1}>
+            <div style={{ alignContent: "center" }}>
+              <Fab
+                color="secondary"
+                aria-label="Add"
+                className={classes.fab}
+                onClick={this.onUpdate}
+              >
+                <SaveIcon />
               </Fab>
             </div>
           </Col>
@@ -76,10 +162,21 @@ class ShopOrderHeaderForm extends React.Component {
         <Row>
           <form className={classes.container} noValidate autoComplete="off">
             <TextField
+              id="order-id"
+              label="Order ID"
+              defaultValue=" "
+              value={this.state.id}
+              className={classes.textField}
+              onChange={this.handleChange("id")}
+              margin="normal"
+              variant="standard"
+              disabled
+            />
+            <TextField
               id="order-no"
               label="Order No"
               defaultValue=" "
-              value={this.props.shopOrderDetails.orderNo}
+              value={this.state.orderNo}
               className={classes.textField}
               onChange={this.handleChange("orderNo")}
               margin="normal"
@@ -89,7 +186,7 @@ class ShopOrderHeaderForm extends React.Component {
               id="description"
               label="Description"
               defaultValue=" "
-              value={this.props.shopOrderDetails.description}
+              value={this.state.description}
               className={classes.textField}
               onChange={this.handleChange("description")}
               margin="normal"
@@ -100,7 +197,7 @@ class ShopOrderHeaderForm extends React.Component {
               label="Created Date"
               type="date"
               defaultValue="2000-01-01"
-              value={this.props.shopOrderDetails.createdDate}
+              value={this.state.createdDate}
               className={classes.textField}
               onChange={this.handleChange("createdDate")}
               margin="normal"
@@ -110,7 +207,7 @@ class ShopOrderHeaderForm extends React.Component {
               id="part-no"
               label="Part No"
               defaultValue=" "
-              value={this.props.shopOrderDetails.partNo}
+              value={this.state.partNo}
               className={classes.textField}
               onChange={this.handleChange("partNo")}
               margin="normal"
@@ -120,7 +217,7 @@ class ShopOrderHeaderForm extends React.Component {
               id="structure-revision"
               label="Structure Revision"
               defaultValue=" "
-              value={this.props.shopOrderDetails.structureRevision}
+              value={this.state.structureRevision}
               className={classes.textField}
               onChange={this.handleChange("structureRevision")}
               margin="normal"
@@ -130,7 +227,7 @@ class ShopOrderHeaderForm extends React.Component {
               id="routing-revision"
               label="Routing Revision"
               defaultValue=" "
-              value={this.props.shopOrderDetails.routingRevision}
+              value={this.state.routingRevision}
               className={classes.textField}
               onChange={this.handleChange("routingRevision")}
               margin="normal"
@@ -141,7 +238,7 @@ class ShopOrderHeaderForm extends React.Component {
               label="Required Date"
               type="date"
               defaultValue="2000-01-01"
-              value={this.props.shopOrderDetails.requiredDate}
+              value={this.state.requiredDate}
               className={classes.textField}
               onChange={this.handleChange("requiredDate")}
               margin="normal"
@@ -152,7 +249,7 @@ class ShopOrderHeaderForm extends React.Component {
               label="Start Date"
               type="date"
               defaultValue="2000-01-01"
-              value={this.props.shopOrderDetails.startDate}
+              value={this.state.startDate}
               className={classes.textField}
               onChange={this.handleChange("startDate")}
               margin="normal"
@@ -163,7 +260,7 @@ class ShopOrderHeaderForm extends React.Component {
               label="Finish Date"
               type="date"
               defaultValue="2000-01-01"
-              value={this.props.shopOrderDetails.finishDate}
+              value={this.state.finishDate}
               className={classes.textField}
               onChange={this.handleChange("finishDate")}
               margin="normal"
@@ -184,7 +281,7 @@ class ShopOrderHeaderForm extends React.Component {
                   className: classes
                 }
               }}
-              value={this.props.shopOrderDetails.schedulingDirection}
+              value={this.state.schedulingDirection}
               onChange={this.handleChange("schedulingDirection")}
               margin="normal"
               variant="standard"
@@ -199,7 +296,7 @@ class ShopOrderHeaderForm extends React.Component {
               id="customer-no"
               label="Customer No"
               defaultValue=" "
-              value={this.props.shopOrderDetails.customerNo}
+              value={this.state.customerNo}
               className={classes.textField}
               onChange={this.handleChange("customerNo")}
               margin="normal"
@@ -220,7 +317,7 @@ class ShopOrderHeaderForm extends React.Component {
                   className: classes
                 }
               }}
-              value={this.props.shopOrderDetails.schedulingStatus}
+              value={this.state.schedulingStatus}
               onChange={this.handleChange("schedulingStatus")}
               margin="normal"
               variant="standard"
@@ -246,7 +343,7 @@ class ShopOrderHeaderForm extends React.Component {
                   className: classes
                 }
               }}
-              value={this.props.shopOrderDetails.shopOrderStatus}
+              value={this.state.shopOrderStatus}
               onChange={this.handleChange("shopOrderStatus")}
               margin="normal"
               variant="standard"
@@ -272,7 +369,7 @@ class ShopOrderHeaderForm extends React.Component {
                   className: classes
                 }
               }}
-              value={this.props.shopOrderDetails.priority}
+              value={this.state.priority}
               onChange={this.handleChange("priority")}
               margin="normal"
               variant="standard"
@@ -298,7 +395,7 @@ class ShopOrderHeaderForm extends React.Component {
                   className: classes
                 }
               }}
-              value={this.props.shopOrderDetails.revenueValue}
+              value={this.state.revenueValue}
               onChange={this.handleChange("priority")}
               margin="normal"
               variant="standard"

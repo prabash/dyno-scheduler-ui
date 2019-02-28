@@ -11,21 +11,21 @@ export const getWCSchedule = () => {
 }
 
 export const addShopOrder = (shopOrder) => {
-    const URL = `http://localhost:8080/api/work-center/add-shop-order`;
+    const URL = `http://localhost:8080/api/shop-order/add-shop-order`;
     return axios.post(URL, shopOrder).then(res => res);
 }
 
 export const updateShopOrder = (shopOrder) => {
-    const URL = `http://localhost:8080/api/work-center/update-shop-order`;
+    const URL = `http://localhost:8080/api/shop-order/update-shop-order`;
     return axios.post(URL, shopOrder).then(res => res);
 }
 
 export const addShopOrderOperation = (operationDetails) => {
-    const URL = `http://localhost:8080/api/work-center/add-operation`;
+    const URL = `http://localhost:8080/api/shop-order/add-operation`;
     return axios.post(URL, operationDetails).then(res => res);
 }
 
 export const updateShopOrderOperation = (operationDetails) => {
-    const URL = `http://localhost:8080/api/work-center/update-operation`;
+    const URL = `http://localhost:8080/api/shop-order/update-operation`;
     return axios.post(URL, operationDetails).then(res => res);
 }

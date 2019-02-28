@@ -14,7 +14,7 @@ import "./ShopOrderHeader.css";
 import ShopOrderHeaderForm from "./ShopOrderHeaderForm";
 import MenuAppBar from "../MenuAppBar/MenuAppBar";
 import ShopOrderOperationsTable from "../ShopOrder/ShopOrderOperationsTable";
-import { getWCSchedule } from "../../Services/GetShopOrderScheduleService";
+import { getWCSchedule } from "../../Services/ShopOrderService";
 
 const styles = theme => ({
   root: {

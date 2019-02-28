@@ -6,6 +6,7 @@ import DataGrid, {
   Paging,
   Lookup
 } from "devextreme-react/data-grid";
+import { addShopOrderOperation, updateShopOrderOperation } from "../../Services/ShopOrderService";
 
 class App extends React.Component {
   constructor(props) {
@@ -31,6 +32,11 @@ class App extends React.Component {
         "quantity": event.data.quantity,
         "operationStatus": event.data.operationStatus,
     };
+    addShopOrderOperation(shopOrderOperation).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
   };
 
   onRowUpdating = event => {
@@ -52,6 +58,11 @@ class App extends React.Component {
       "quantity": event.data.quantity,
       "operationStatus": event.data.operationStatus
     };
+    updateShopOrderOperation(shopOrderOperation).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
   };
 
   render() {
