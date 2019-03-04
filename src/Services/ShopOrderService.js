@@ -29,3 +29,8 @@ export const updateShopOrderOperation = (operationDetails) => {
     const URL = `http://localhost:8080/api/shop-order/update-operation`;
     return axios.post(URL, operationDetails).then(res => res);
 }
+
+export const changeOpStatusToUnschedule = (orderNo) => {
+    const URL = `http://localhost:8080/api/shop-order/unschedule-op-status`;
+    return axios.post(URL, orderNo).then(res => res);
+}

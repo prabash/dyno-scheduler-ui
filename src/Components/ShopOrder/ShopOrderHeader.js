@@ -5,8 +5,6 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import { Container, Row, Col } from "react-grid-system";
 import { formatDate } from "../../Global/DateTimeUtil";
-import { employees, states } from './data';
-
 /* CSS */
 import "./ShopOrderHeader.css";
 

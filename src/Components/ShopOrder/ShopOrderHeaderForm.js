@@ -8,8 +8,9 @@ import InputAdornment from "@material-ui/core/InputAdornment";
 import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
+import AvTimer from "@material-ui/icons/AvTimer";
 import { Row, Col } from "react-grid-system";
-import { addShopOrder, updateShopOrder } from "../../Services/ShopOrderService";
+import { addShopOrder, updateShopOrder, changeOpStatusToUnschedule } from "../../Services/ShopOrderService";
 
 const styles = theme => ({
   container: {
@@ -128,12 +129,39 @@ class ShopOrderHeaderForm extends React.Component {
     });
   };
 
+  onChangeOpStatusToUnschedule = () => {
+    let shopOrderDetails = {
+      "id": this.state.id,
+      "orderNo": this.state.orderNo,
+      "description":this.state.description,
+      "createdDate": this.state.createdDate,
+      "partNo": this.state.partNo,
+      "structureRevision": this.state.structureRevision,
+      "routingRevision": this.state.routingRevision,
+      "requiredDate": this.state.requiredDate,
+      "startDate": this.state.startDate,
+      "finishDate": this.state.finishDate,
+      "schedulingDirection": this.state.schedulingDirection,
+      "customerNo": this.state.customerNo,
+      "schedulingStatus": this.state.schedulingStatus,
+      "shopOrderStatus": this.state.shopOrderStatus,
+      "priority": this.state.priority,
+      "revenueValue": this.state.revenueValue
+    };
+
+    changeOpStatusToUnschedule(shopOrderDetails).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
+  }
+
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.fabContainer}>
         <Row>
-          <Col md={10} />
+          <Col md={9} />
           <Col md={1}>
             <div style={{ marginRight: 5 }}>
               <Fab
@@ -150,11 +178,23 @@ class ShopOrderHeaderForm extends React.Component {
             <div style={{ alignContent: "center" }}>
               <Fab
                 color="secondary"
-                aria-label="Add"
+                aria-label="Update"
                 className={classes.fab}
                 onClick={this.onUpdate}
               >
                 <SaveIcon />
+              </Fab>
+            </div>
+          </Col>
+          <Col md={1}>
+            <div style={{ alignContent: "center" }}>
+              <Fab
+                color="secondary"
+                aria-label="Unschedule"
+                className={classes.fab}
+                onClick={this.onChangeOpStatusToUnschedule}
+              >
+                <AvTimer />
               </Fab>
             </div>
           </Col>
