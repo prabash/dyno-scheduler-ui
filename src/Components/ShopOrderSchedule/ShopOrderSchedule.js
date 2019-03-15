@@ -3,7 +3,7 @@ import Scheduler, { Resource } from "devextreme-react/scheduler";
 import { resourcesData, priorityData } from "../../Services/data";
 import { shopOrderOperations } from "../../Services/test";
 import {
-  getWCSchedule,
+  getScheduledOrders,
   getWCScheduleTest
 } from "../../Services/ShopOrderService";
 import ShopOrderSchedulerAppointmentCell from "./ShopOrderSchedulerAppointmentCell";
@@ -23,13 +23,16 @@ const views = [
   "timelineWorkWeek",
   "timelineMonth"
 ];
+
 const soGroups = ["orderNo"];
 const groups = ["priority"];
 
 class ShopOrderSchedule extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      schedulerHeight : 400
+    };
   }
 
   componentDidMount() {
@@ -43,7 +46,7 @@ class ShopOrderSchedule extends Component {
       this.setState({ content });
     });
     
-    getWCSchedule().then(res => {
+    getScheduledOrders().then(res => {
       // get the service data
       const serviceData = res.data;
       // send the service data to be formatted
@@ -65,11 +68,16 @@ class ShopOrderSchedule extends Component {
     const soOperations = [];
     const shopOrders = [];
     const workCenters = [];
+    
+    // the height of the scheduler is set dynamically, for each row 400 height is set
+    var height = currentData.length * 400;
+    this.setState({ schedulerHeight : height });
+
     for (var i = 0; i < currentData.length; i++) {
       var soObject = currentData[i];
       let shopOrder = {
         id: soObject.orderNo,
-        text: "Order " +soObject.orderNo + " : " + soObject.description,
+        text: "O" +soObject.orderNo + " : " + soObject.description,
         color: this.getRandomColor()
       };
       shopOrders.push(shopOrder);
@@ -111,7 +119,7 @@ class ShopOrderSchedule extends Component {
   }
 
   render() {
-    const { content, soOperations, shopOrders, workCenters } = this.state;
+    const { content, soOperations, shopOrders, workCenters, schedulerHeight } = this.state;
     return (
       <div className="App">
       <MenuAppBar titleText="Shop Order Schedule"/>
@@ -124,11 +132,14 @@ class ShopOrderSchedule extends Component {
               id="work-center-schedule"
               dataSource={soOperations}
               views={views}
+              maxAppointmentsPerCell={"unlimited"}
               //appointmentComponent={ShopOrderSchedulerAppointmentCell}
               defaultCurrentView={"timelineMonth"}
               defaultCurrentDate={currentDate}
-              height={600}
+              height={schedulerHeight}
+              showCurrentTimeIndicator={true}
               groups={soGroups}
+
               cellDuration={60}
               firstDayOfWeek={0}
               startDayHour={8}

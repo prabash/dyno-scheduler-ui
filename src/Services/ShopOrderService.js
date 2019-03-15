@@ -10,6 +10,11 @@ export const getWCSchedule = () => {
     return axios.get(URL).then(res => res);
 }
 
+export const getScheduledOrders = () => {
+    const URL = `http://localhost:8080/api/shop-order/get-scheduled-orders`;
+    return axios.get(URL).then(res => res);
+}
+
 export const addShopOrder = (shopOrder) => {
     const URL = `http://localhost:8080/api/shop-order/add-shop-order`;
     return axios.post(URL, shopOrder).then(res => res);
