@@ -10,8 +10,8 @@ export const getWCSchedule = () => {
     return axios.get(URL).then(res => res);
 }
 
-export const getScheduledOrders = () => {
-    const URL = `http://localhost:8080/api/shop-order/get-scheduled-orders`;
+export const getScheduledOrders = (skip, take) => {
+    const URL = `http://localhost:8080/api/shop-order/get-scheduled-orders/${skip}/${take}`;
     return axios.get(URL).then(res => res);
 }
 
@@ -38,4 +38,9 @@ export const updateShopOrderOperation = (operationDetails) => {
 export const changeOpStatusToUnschedule = (orderNo) => {
     const URL = `http://localhost:8080/api/shop-order/unschedule-op-status`;
     return axios.post(URL, orderNo).then(res => res);
+}
+
+export const getScheduledOrdersByWorkCenters = (skip, take) => {
+    const URL = `http://localhost:8080/api/shop-order/get-scheduled-orders-by-wc/${skip}/${take}`;
+    return axios.get(URL).then(res => res);
 }

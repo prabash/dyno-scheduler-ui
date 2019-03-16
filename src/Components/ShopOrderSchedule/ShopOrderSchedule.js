@@ -1,6 +1,9 @@
 import React, { Component } from "react";
 import Scheduler, { Resource } from "devextreme-react/scheduler";
-import { resourcesData, priorityData } from "../../Services/data";
+import { withStyles } from "@material-ui/core/styles";
+import { Row } from "react-grid-system";
+import TextField from "@material-ui/core/TextField";
+import Button from "@material-ui/core/Button";
 import { shopOrderOperations } from "../../Services/test";
 import {
   getScheduledOrders,
@@ -15,6 +18,19 @@ import "devextreme/dist/css/dx.dark.css";
 
 /* Components */
 import MenuAppBar from "../MenuAppBar/MenuAppBar";
+
+const styles = theme => ({
+  searchContainer: {
+    display: "flex",
+    flexWrap: "wrap",
+    marginLeft: theme.spacing.unit * 2,
+    marginBottom: theme.spacing.unit * 2
+  },
+  button: {
+    marginTop: theme.spacing.unit * 3.5,
+    marginLeft: theme.spacing.unit * 5
+  }
+});
 
 const currentDate = new Date(2018, 7, 6);
 const views = [
@@ -31,27 +47,27 @@ class ShopOrderSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      schedulerHeight : 300
+      schedulerHeight : 300,
+      fromShopOrderID : 1,
+      toShopOrderID : 10
     };
   }
 
   componentDidMount() {
-    getWCScheduleTest().then(res => {
-      const content = res.data;
-      for (var i = 0; i < res.data.length; i++) {
-        var obj = res.data[i];
-        obj.key = i;
-      }
-      console.log(content);
-      this.setState({ content });
-    });
-    
-    getScheduledOrders().then(res => {
+    this.loadShopOrderOperationsBySkipTake();
+  }
+
+  loadShopOrderOperationsBySkipTake(){
+    var skip = this.state.fromShopOrderID - 1;
+    var take = this.state.toShopOrderID - skip;
+
+    getScheduledOrders(skip, take).then(res => {
       // get the service data
       const serviceData = res.data;
       // send the service data to be formatted
       this.formatShopOrderOperationData(serviceData);
     });
+
   }
 
   formatShopOrderOperationData(soOperationData){
@@ -93,7 +109,7 @@ class ShopOrderSchedule extends Component {
         };
 
         var found = workCenters.some(function (field) {
-          return field.wcNo === operationObj.workCenterNo;
+          return field.id === operationObj.workCenterNo;
         });
         if (!found) { 
           workCenters.push(workCenter);
@@ -118,16 +134,57 @@ class ShopOrderSchedule extends Component {
     return color;
   }
 
+  handleChange = name => event => {
+    this.setState({
+      [name]: event.target.value
+    });
+  };
+
+  onLoadButtonPress = () => {
+    this.loadShopOrderOperationsBySkipTake();
+  };
+
   render() {
+    const { classes } = this.props;
     const { content, soOperations, shopOrders, workCenters, schedulerHeight } = this.state;
     return (
       <div className="App">
       <MenuAppBar titleText="Shop Order Schedule"/>
         <main id="page-wrap">
           <h1>Shop Order Schedule</h1>
-
+          <div className={classes.searchContainer}>
+            <Row>
+              <form noValidate autoComplete="off">
+                <TextField
+                  id="from-shop-order"
+                  label="From Shop Order ID"
+                  defaultValue=" "
+                  value={this.state.fromShopOrderID}
+                  onChange={this.handleChange("fromShopOrderID")}
+                  margin="normal"
+                  variant="standard"
+                />
+                <TextField
+                  id="to-shop-order"
+                  label="To Shop Order ID"
+                  defaultValue=" "
+                  value={this.state.toShopOrderID}
+                  onChange={this.handleChange("toShopOrderID")}
+                  margin="normal"
+                  variant="standard"
+                />
+                <Button
+                  variant="contained"
+                  color="primary"
+                  className={classes.button}
+                  onClick={() => this.onLoadButtonPress()}
+                >
+                  Load Details
+                </Button>
+              </form>
+            </Row>
+          </div>
           <div style={{ height: "75%" }}>
-            
             <Scheduler
               id="work-center-schedule"
               dataSource={soOperations}
@@ -168,4 +225,4 @@ class ShopOrderSchedule extends Component {
   }
 }
 
-export default ShopOrderSchedule;
+export default  withStyles(styles)(ShopOrderSchedule);
