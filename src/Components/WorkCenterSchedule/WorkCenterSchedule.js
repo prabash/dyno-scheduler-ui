@@ -6,10 +6,8 @@ import {
   getScheduledOrders,
   getWCScheduleTest
 } from "../../Services/ShopOrderService";
-import ShopOrderSchedulerAppointmentCell from "./ShopOrderSchedulerAppointmentCell";
 
 /* CSS */
-import "./ShopOrderSchedule.css";
 import "devextreme/dist/css/dx.common.css";
 import "devextreme/dist/css/dx.dark.css";
 
@@ -24,10 +22,10 @@ const views = [
   "timelineMonth"
 ];
 
-const soGroups = ["orderNo"];
+const soGroups = ["workCenterNo"];
 const groups = ["priority"];
 
-class ShopOrderSchedule extends Component {
+class WorkCenterSchedule extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -36,15 +34,6 @@ class ShopOrderSchedule extends Component {
   }
 
   componentDidMount() {
-    getWCScheduleTest().then(res => {
-      const content = res.data;
-      for (var i = 0; i < res.data.length; i++) {
-        var obj = res.data[i];
-        obj.key = i;
-      }
-      console.log(content);
-      this.setState({ content });
-    });
     
     getScheduledOrders().then(res => {
       // get the service data
@@ -68,10 +57,6 @@ class ShopOrderSchedule extends Component {
     const soOperations = [];
     const shopOrders = [];
     const workCenters = [];
-    
-    // the height of the scheduler is set dynamically, for each row 400 height is set
-    var height = currentData.length * 300;
-    this.setState({ schedulerHeight : height });
 
     for (var i = 0; i < currentData.length; i++) {
       var soObject = currentData[i];
@@ -105,7 +90,14 @@ class ShopOrderSchedule extends Component {
     console.log(shopOrders);
     console.log(workCenters);
 
-    this.setState({ soOperations, shopOrders, workCenters});
+    var slicedWorkCenters =  workCenters.slice(0, 5);
+    this.setState({ soOperations, shopOrders, slicedWorkCenters});
+    
+    // the height of the scheduler is set dynamically, for each of the work center 300 height is set
+    var height = workCenters.length * 80;
+    this.setState({ schedulerHeight : height });
+
+    alert('Completed Json Manipulation')
   }
   
 
@@ -122,9 +114,9 @@ class ShopOrderSchedule extends Component {
     const { content, soOperations, shopOrders, workCenters, schedulerHeight } = this.state;
     return (
       <div className="App">
-      <MenuAppBar titleText="Shop Order Schedule"/>
+      <MenuAppBar titleText="Work Centre Schedule"/>
         <main id="page-wrap">
-          <h1>Shop Order Schedule</h1>
+          <h1>Work Centre Schedule</h1>
 
           <div style={{ height: "75%" }}>
             
@@ -132,8 +124,7 @@ class ShopOrderSchedule extends Component {
               id="work-center-schedule"
               dataSource={soOperations}
               views={views}
-              maxAppointmentsPerCell={"unlimited"}
-              //appointmentComponent={ShopOrderSchedulerAppointmentCell}
+              //maxAppointmentsPerCell={"unlimited"}
               defaultCurrentView={"timelineMonth"}
               defaultCurrentDate={currentDate}
               height={schedulerHeight}
@@ -148,18 +139,12 @@ class ShopOrderSchedule extends Component {
               endDateExpr={"opFinishDateTime"}
             >
             <Resource
-                fieldExpr={"orderNo"}
-                allowMultiple={false}
-                dataSource={shopOrders}
-                label={"ShopOrder"}
-              />
-              <Resource
-                fieldExpr={"workCenterNo"}
-                allowMultiple={true}
-                dataSource={workCenters}
-                label={"WorkCenter"}
-                useColorAsDefault={true}
-              />
+              fieldExpr={"workCenterNo"}
+              allowMultiple={true}
+              dataSource={workCenters}
+              label={"WorkCenter"}
+              useColorAsDefault={true}
+            />
             </Scheduler>
           </div>
         </main>
@@ -168,4 +153,4 @@ class ShopOrderSchedule extends Component {
   }
 }
 
-export default ShopOrderSchedule;
+export default WorkCenterSchedule;

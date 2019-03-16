@@ -8,10 +8,11 @@ import BurgerMenu from "react-burger-menu";
 import "./Menu.css";
 
 /* Routing */
-import ShopOrderSchedule from "../ShopOrderSchedule/ShopOrderSchedule";
-import ShopOrderHeader from "../ShopOrder/ShopOrderHeader";
 import Home from "../Home/Home";
+import ShopOrderHeader from "../ShopOrder/ShopOrderHeader";
+import ShopOrderSchedule from "../ShopOrderSchedule/ShopOrderSchedule";
 import WorkCenter from "../WorkCenter/WorkCenterHeader";
+import WorkCenterSchedule from "../WorkCenterSchedule/WorkCenterSchedule"
 import PartDetails from "../PartDetails/PartHeader";
 
 /* MenuWrap Class */
@@ -46,20 +47,20 @@ export default class Menu extends Component {
       <NavLink to="/">
         <span>Home</span>
       </NavLink>,
-      <NavLink to="/ShopOrderSchedule">
-        <span>Shop Order Schedule</span>
-      </NavLink>,
       <NavLink to="/ShopOrderHeader">
         <span>Shop Order Header</span>
+      </NavLink>,
+      <NavLink to="/ShopOrderSchedule">
+        <span>Shop Order Schedule</span>
       </NavLink>,
       <NavLink to="/WorkCenter">
         <span>Work Center</span>
       </NavLink>,
+      <NavLink to="/WorkCenterSchedule">
+        <span>Work Center Schedule</span>
+      </NavLink>,
       <NavLink to="/PartDetails">
         <span>Part Details</span>
-      </NavLink>,
-      <NavLink to="/Contact">
-        <span>Contact</span>
       </NavLink>
     ];
 
@@ -91,6 +92,7 @@ export default class Menu extends Component {
           <Route path="/ShopOrderSchedule" component={ShopOrderSchedule} />
           <Route path="/ShopOrderHeader" component={ShopOrderHeader} />
           <Route path="/WorkCenter" component={WorkCenter} />
+          <Route path="/WorkCenterSchedule" component={WorkCenterSchedule} />
           <Route path="/PartDetails" component={PartDetails} />
         </div>
       </Router>
