@@ -91,11 +91,10 @@ class WorkCenterSchedule extends Component {
       shopOrders.push(shopOrder);
       for (var j = 0; j < soObject.operations.length; j++) {
         var operationObj = soObject.operations[j];
-        operationObj.appointmentHeader =
-          "OP No: " +
-          operationObj.operationId +
-          ", WC No: " +
-          operationObj.workCenterNo;
+        operationObj.appointmentHeader = "Order No: " + 
+          soObject.orderNo +
+          ", Op. No: " +
+          operationObj.operationId;
         soOperations.push(operationObj);
 
         let workCenter = {
@@ -124,7 +123,7 @@ class WorkCenterSchedule extends Component {
     this.setState({ soOperations, shopOrders, workCenters });
 
     // the height of the scheduler is set dynamically, for each of the work center 300 height is set
-    var height = workCenters.length * 100;
+    var height = workCenters.length * 80;
     this.setState({ schedulerHeight: height });
   }
 
@@ -217,13 +216,13 @@ class WorkCenterSchedule extends Component {
                 allowMultiple={false}
                 dataSource={shopOrders}
                 label={"ShopOrder"}
+                useColorAsDefault={true}
               />
               <Resource
                 fieldExpr={"workCenterNo"}
                 allowMultiple={true}
                 dataSource={workCenters}
                 label={"WorkCenter"}
-                useColorAsDefault={true}
               />
             </Scheduler>
           </div>

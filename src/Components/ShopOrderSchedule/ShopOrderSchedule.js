@@ -86,7 +86,7 @@ class ShopOrderSchedule extends Component {
     const workCenters = [];
     
     // the height of the scheduler is set dynamically, for each row 400 height is set
-    var height = currentData.length * 300;
+    var height = currentData.length * 150;
     this.setState({ schedulerHeight : height });
 
     for (var i = 0; i < currentData.length; i++) {
