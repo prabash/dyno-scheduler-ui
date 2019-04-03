@@ -9,8 +9,14 @@ import Fab from "@material-ui/core/Fab";
 import AddIcon from "@material-ui/icons/Add";
 import SaveIcon from "@material-ui/icons/Save";
 import AvTimer from "@material-ui/icons/AvTimer";
+import CancelIcon from "@material-ui/icons/Cancel";
 import { Row, Col } from "react-grid-system";
-import { addShopOrder, updateShopOrder, changeOpStatusToUnschedule } from "../../Services/ShopOrderService";
+import {
+  addShopOrder,
+  updateShopOrder,
+  changeOpStatusToUnschedule,
+  cancelShoporder
+} from "../../Services/ShopOrderService";
 
 const styles = theme => ({
   container: {
@@ -73,28 +79,28 @@ class ShopOrderHeaderForm extends React.Component {
       schedulingStatus: nextProps.shopOrderDetails.schedulingStatus,
       shopOrderStatus: nextProps.shopOrderDetails.shopOrderStatus,
       priority: nextProps.shopOrderDetails.priority,
-      revenueValue: nextProps.shopOrderDetails.revenueValue,
+      revenueValue: nextProps.shopOrderDetails.revenueValue
     });
   }
 
   onAdd = () => {
     let shopOrderDetails = {
-      "id": 0,
-      "orderNo": this.state.orderNo,
-      "description":this.state.description,
-      "createdDate": this.state.createdDate,
-      "partNo": this.state.partNo,
-      "structureRevision": this.state.structureRevision,
-      "routingRevision": this.state.routingRevision,
-      "requiredDate": this.state.requiredDate,
-      "startDate": this.state.startDate,
-      "finishDate": this.state.finishDate,
-      "schedulingDirection": this.state.schedulingDirection,
-      "customerNo": this.state.customerNo,
-      "schedulingStatus": this.state.schedulingStatus,
-      "shopOrderStatus": this.state.shopOrderStatus,
-      "priority": this.state.priority,
-      "revenueValue": this.state.revenueValue
+      id: 0,
+      orderNo: this.state.orderNo,
+      description: this.state.description,
+      createdDate: this.state.createdDate,
+      partNo: this.state.partNo,
+      structureRevision: this.state.structureRevision,
+      routingRevision: this.state.routingRevision,
+      requiredDate: this.state.requiredDate,
+      startDate: this.state.startDate,
+      finishDate: this.state.finishDate,
+      schedulingDirection: this.state.schedulingDirection,
+      customerNo: this.state.customerNo,
+      schedulingStatus: this.state.schedulingStatus,
+      shopOrderStatus: this.state.shopOrderStatus,
+      priority: this.state.priority,
+      revenueValue: this.state.revenueValue
     };
     addShopOrder(shopOrderDetails).then(res => {
       // get the service data
@@ -105,22 +111,22 @@ class ShopOrderHeaderForm extends React.Component {
 
   onUpdate = () => {
     let shopOrderDetails = {
-      "id": this.state.id,
-      "orderNo": this.state.orderNo,
-      "description":this.state.description,
-      "createdDate": this.state.createdDate,
-      "partNo": this.state.partNo,
-      "structureRevision": this.state.structureRevision,
-      "routingRevision": this.state.routingRevision,
-      "requiredDate": this.state.requiredDate,
-      "startDate": this.state.startDate,
-      "finishDate": this.state.finishDate,
-      "schedulingDirection": this.state.schedulingDirection,
-      "customerNo": this.state.customerNo,
-      "schedulingStatus": this.state.schedulingStatus,
-      "shopOrderStatus": this.state.shopOrderStatus,
-      "priority": this.state.priority,
-      "revenueValue": this.state.revenueValue
+      id: this.state.id,
+      orderNo: this.state.orderNo,
+      description: this.state.description,
+      createdDate: this.state.createdDate,
+      partNo: this.state.partNo,
+      structureRevision: this.state.structureRevision,
+      routingRevision: this.state.routingRevision,
+      requiredDate: this.state.requiredDate,
+      startDate: this.state.startDate,
+      finishDate: this.state.finishDate,
+      schedulingDirection: this.state.schedulingDirection,
+      customerNo: this.state.customerNo,
+      schedulingStatus: this.state.schedulingStatus,
+      shopOrderStatus: this.state.shopOrderStatus,
+      priority: this.state.priority,
+      revenueValue: this.state.revenueValue
     };
     updateShopOrder(shopOrderDetails).then(res => {
       // get the service data
@@ -131,22 +137,22 @@ class ShopOrderHeaderForm extends React.Component {
 
   onChangeOpStatusToUnschedule = () => {
     let shopOrderDetails = {
-      "id": this.state.id,
-      "orderNo": this.state.orderNo,
-      "description":this.state.description,
-      "createdDate": this.state.createdDate,
-      "partNo": this.state.partNo,
-      "structureRevision": this.state.structureRevision,
-      "routingRevision": this.state.routingRevision,
-      "requiredDate": this.state.requiredDate,
-      "startDate": this.state.startDate,
-      "finishDate": this.state.finishDate,
-      "schedulingDirection": this.state.schedulingDirection,
-      "customerNo": this.state.customerNo,
-      "schedulingStatus": this.state.schedulingStatus,
-      "shopOrderStatus": this.state.shopOrderStatus,
-      "priority": this.state.priority,
-      "revenueValue": this.state.revenueValue
+      id: this.state.id,
+      orderNo: this.state.orderNo,
+      description: this.state.description,
+      createdDate: this.state.createdDate,
+      partNo: this.state.partNo,
+      structureRevision: this.state.structureRevision,
+      routingRevision: this.state.routingRevision,
+      requiredDate: this.state.requiredDate,
+      startDate: this.state.startDate,
+      finishDate: this.state.finishDate,
+      schedulingDirection: this.state.schedulingDirection,
+      customerNo: this.state.customerNo,
+      schedulingStatus: this.state.schedulingStatus,
+      shopOrderStatus: this.state.shopOrderStatus,
+      priority: this.state.priority,
+      revenueValue: this.state.revenueValue
     };
 
     changeOpStatusToUnschedule(shopOrderDetails).then(res => {
@@ -154,14 +160,22 @@ class ShopOrderHeaderForm extends React.Component {
       const serviceData = res.data;
       alert(serviceData);
     });
-  }
+  };
+
+  onCancelShopOrder = () => {
+    cancelShoporder(this.state.orderNo).then(res => {
+      // get the service data
+      const serviceData = res.data;
+      alert(serviceData);
+    });
+  };
 
   render() {
     const { classes } = this.props;
     return (
       <div className={classes.fabContainer}>
         <Row>
-          <Col md={9} />
+          <Col md={8} />
           <Col md={1}>
             <div style={{ marginRight: 5 }}>
               <Fab
@@ -195,6 +209,18 @@ class ShopOrderHeaderForm extends React.Component {
                 onClick={this.onChangeOpStatusToUnschedule}
               >
                 <AvTimer />
+              </Fab>
+            </div>
+          </Col>
+          <Col md={1}>
+            <div style={{ alignContent: "center" }}>
+              <Fab
+                color="secondary"
+                aria-label="Cancel"
+                className={classes.fab}
+                onClick={this.onCancelShopOrder}
+              >
+                <CancelIcon />
               </Fab>
             </div>
           </Col>

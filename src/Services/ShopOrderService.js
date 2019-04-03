@@ -44,3 +44,8 @@ export const getScheduledOrdersByWorkCenters = (skip, take) => {
     const URL = `http://localhost:8080/api/shop-order/get-scheduled-orders-by-wc/${skip}/${take}`;
     return axios.get(URL).then(res => res);
 }
+
+export const cancelShoporder = (orderNo) => {
+    const URL = `http://localhost:8080/api/shop-order/cancel/${orderNo}`;
+    return axios.get(URL).then(res => res);
+}
