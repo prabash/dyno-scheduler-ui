@@ -60,6 +60,10 @@ const shopOrderStatusList = [
 
 const priorityList = [
   {
+    value: "Critical",
+    label: "Critical"
+  },
+  {
     value: "High",
     label: "High"
   },
@@ -70,6 +74,10 @@ const priorityList = [
   {
     value: "Low",
     label: "Low"
+  },
+  {
+    value: "Trivial",
+    label: "Trivial"
   }
 ];
 
