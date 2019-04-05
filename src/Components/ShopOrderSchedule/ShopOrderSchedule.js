@@ -55,6 +55,7 @@ class ShopOrderSchedule extends Component {
 
   componentDidMount() {
     this.loadShopOrderOperationsBySkipTake();
+    document.title = "Shop Order Schedule";
   }
 
   loadShopOrderOperationsBySkipTake(){

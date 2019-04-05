@@ -53,6 +53,7 @@ class WorkCenterSchedule extends Component {
 
   componentDidMount() {
     this.loadShopOrderOperationsByWorkCenters();
+    document.title = "Work Centre Schedule";
   }
 
   loadShopOrderOperationsByWorkCenters() {

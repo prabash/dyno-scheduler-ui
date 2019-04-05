@@ -38,6 +38,7 @@ class PartHeader extends Component {
       // send the service data to be formatted
       this.formatPartData(serviceData);
     });
+    document.title = "Part Details";
   }
 
   formatPartData(partData) {

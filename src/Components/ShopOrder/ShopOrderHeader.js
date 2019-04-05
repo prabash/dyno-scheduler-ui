@@ -123,6 +123,7 @@ class ShopOrderHeader extends Component {
       // send the service data to be formatted
       this.formatShopOrderOperationData(serviceData);
     });
+    document.title = "Shop Order Details";
   }
 
   formatShopOrderOperationData(soOperationData) {

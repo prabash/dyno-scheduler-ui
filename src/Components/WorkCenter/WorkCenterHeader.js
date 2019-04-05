@@ -38,6 +38,7 @@ class WorkCenterHeader extends Component {
       // send the service data to be formatted
       this.formatWorkCenterData(serviceData);
     });
+    document.title = "Work Centre Details";
   }
 
   formatWorkCenterData(workCenterData) {
